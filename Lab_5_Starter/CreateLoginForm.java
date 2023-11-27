@@ -7,6 +7,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import java.util.*;
 
 
 //create CreateLoginForm class to create login form
@@ -91,18 +93,31 @@ class CreateLoginForm extends JFrame implements ActionListener
     {
         String userValue = textField1.getText();        //get user entered username from the textField1
         String passValue = textField2.getText();        //get user entered pasword from the textField2
-        String user = "";
-        String pw = "";
+        ArrayList<String> user = new ArrayList<String>();
+        ArrayList<String> pw = new ArrayList<String>();
         boolean isSuccess = false;
 
         // Lab 5 Step 5: use username and password from users.txt file
-        //
-        //
-        //
+        try {
+            File users = new File("Lab_5_Starter/users.txt");
+            try (Scanner sc = new Scanner(users)) {
+                while(sc.hasNextLine()){
+                    sc.useDelimiter(" ");
+                    user.add(sc.next());
+                    sc.skip(" ");
+                    sc.useDelimiter("\\n");
+                    pw.add(sc.next());
+                    sc.skip("\n");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Missing file: " + e.getMessage());
+        }
+
 
 
         //check whether the credentials are authentic or not
-        if (userValue.equals("start") && passValue.equals("lab5")) {  //if authentic, navigate user to a new page
+        if (user.contains(userValue) && pw.contains(passValue)) {  //if authentic, navigate user to a new page
 
             //create instance of the ConvertFrame
             CellPhoneInventory page = new CellPhoneInventory();

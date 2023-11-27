@@ -11,7 +11,7 @@ public class CellPhone
    private String manufacturer;    // Manufacturer
    private double retailPrice; // Retail price
 
-   public CellPhone(String m, String man, double price)
+   public CellPhone(String m, String man, double price) throws InvalidManufacturerException, InvalidModelException, InvalidRetailPriceException
    {
       try {
          setModel(m);
@@ -28,8 +28,11 @@ public class CellPhone
       } catch (InvalidRetailPriceException e) {
          System.out.println("Error: " + e.getMessage());
       }
+      // setModel(m);
+      // setManufacturer(man);
+      // setRetailPrice(price);
    }
-   public CellPhone()
+   public CellPhone() throws InvalidManufacturerException, InvalidModelException, InvalidRetailPriceException
    {
       this("","",0.0);
    }

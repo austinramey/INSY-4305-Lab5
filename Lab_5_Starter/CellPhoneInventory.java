@@ -60,10 +60,15 @@ public class CellPhoneInventory extends JFrame {
                 double price = Double.parseDouble(jTextFieldRetailPrice.getText());
                 // Lab 5 Step 4: incorporate CellPhone's user-defined Exception classes
                 // here in try catch block
-                //.............
-                //............
-                //.............
-                phoneArrayList.add(new CellPhone(model, manufacturer, price));
+                try {
+                    phoneArrayList.add(new CellPhone(model, manufacturer, price));
+                } catch (InvalidModelException error) {
+                    System.out.println("Error: " + error.getMessage());
+                } catch (InvalidManufacturerException error) {
+                    System.out.println("Error: " + error.getMessage());
+                } catch (InvalidRetailPriceException error) {
+                    System.out.println("Error: " + error.getMessage());
+                }
 
                 String InventoryDisplay = "";
                 for (CellPhone p : phoneArrayList) {
