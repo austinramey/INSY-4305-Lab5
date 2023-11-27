@@ -13,26 +13,51 @@ public class CellPhone
 
    public CellPhone(String m, String man, double price)
    {
-      setModel(m);
-      setManufacturer(man);
-      setRetailPrice(price);
+      try {
+         setModel(m);
+      } catch (InvalidModelException e) {
+         System.out.println("Error: " + e.getMessage());
+      }
+      try {
+         setManufacturer(man);
+      } catch (InvalidManufacturerException e) {
+         System.out.println("Error: " + e.getMessage());
+      }
+      try {
+         setRetailPrice(price);
+      } catch (InvalidRetailPriceException e) {
+         System.out.println("Error: " + e.getMessage());
+      }
    }
    public CellPhone()
    {
       this("","",0.0);
    }
 
-   public void setModel(String m)   {
-      model = m;
+   public void setModel(String m) throws InvalidModelException{
+      if(m.isEmpty()){
+         throw new InvalidModelException("Empty model string");
+      }
+      else{
+         model = m;
+      }
    }
-   public void setManufacturer(String man)
-   {
-      manufacturer = man;
+   public void setManufacturer(String man) throws InvalidManufacturerException{
+      if(man.isEmpty()){
+         throw new InvalidManufacturerException("Empty manufacturer string");
+      }
+      else{
+         manufacturer = man;
+      }
    }
    
-   public void setRetailPrice(double price)
-   {
-      retailPrice = price;
+   public void setRetailPrice(double price) throws InvalidRetailPriceException{
+      if(price <= 0 || price > 1500){
+         throw new InvalidRetailPriceException(price);
+      }
+      else{
+         retailPrice = price;
+      }
    }
 
    public String getModel(){return model;}
