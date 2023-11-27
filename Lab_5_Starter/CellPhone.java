@@ -1,3 +1,4 @@
+import javax.swing.JOptionPane;
 
 /**
 
@@ -16,17 +17,17 @@ public class CellPhone
       try {
          setModel(m);
       } catch (InvalidModelException e) {
-         System.out.println("Error: " + e.getMessage());
+         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
       }
       try {
          setManufacturer(man);
       } catch (InvalidManufacturerException e) {
-         System.out.println("Error: " + e.getMessage());
+         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
       }
       try {
          setRetailPrice(price);
       } catch (InvalidRetailPriceException e) {
-         System.out.println("Error: " + e.getMessage());
+         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
       }
       // setModel(m);
       // setManufacturer(man);
@@ -55,7 +56,7 @@ public class CellPhone
    }
    
    public void setRetailPrice(double price) throws InvalidRetailPriceException{
-      if(price <= 0 || price > 1500){
+      if(price <= 0 || price > 1500 || price == 0.0 || price == 0){
          throw new InvalidRetailPriceException(price);
       }
       else{

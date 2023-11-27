@@ -60,22 +60,30 @@ public class CellPhoneInventory extends JFrame {
                 double price = Double.parseDouble(jTextFieldRetailPrice.getText());
                 // Lab 5 Step 4: incorporate CellPhone's user-defined Exception classes
                 // here in try catch block
+                boolean success = false;
                 try {
                     phoneArrayList.add(new CellPhone(model, manufacturer, price));
+                    success = true;
                 } catch (InvalidModelException error) {
-                    System.out.println("Error: " + error.getMessage());
+                    // JOptionPane.showMessageDialog(null, "Error: " + error.getMessage());
+                    success = false;
                 } catch (InvalidManufacturerException error) {
-                    System.out.println("Error: " + error.getMessage());
+                    // JOptionPane.showMessageDialog(null, "Error: " + error.getMessage());
+                    success = false;
                 } catch (InvalidRetailPriceException error) {
-                    System.out.println("Error: " + error.getMessage());
+                    // JOptionPane.showMessageDialog(null, "Error: " + error.getMessage());
+                    success = false;
+                } finally {
+                    if(success == true){
+                        String InventoryDisplay = "";
+                        for (CellPhone p : phoneArrayList) {
+                            System.out.println(p);
+                            InventoryDisplay += p;
+                        }
+                        JOptionPane.showMessageDialog(null, InventoryDisplay);
+                    }
                 }
 
-                String InventoryDisplay = "";
-                for (CellPhone p : phoneArrayList) {
-                    System.out.println(p);
-                    InventoryDisplay += p;
-                }
-                JOptionPane.showMessageDialog(null, InventoryDisplay);
             }
         });
         jButtonNext.addActionListener(new ActionListener() {
