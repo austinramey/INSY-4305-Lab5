@@ -1,5 +1,3 @@
-import javax.swing.JOptionPane;
-
 /**
 
  Lab 5 Starter program
@@ -14,24 +12,18 @@ public class CellPhone
 
    public CellPhone(String m, String man, double price) throws InvalidManufacturerException, InvalidModelException, InvalidRetailPriceException
    {
+      // Tries to set various values 
       try {
          setModel(m);
-      } catch (InvalidModelException e) {
-         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-      }
-      try {
          setManufacturer(man);
-      } catch (InvalidManufacturerException e) {
-         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-      }
-      try {
          setRetailPrice(price);
-      } catch (InvalidRetailPriceException e) {
-         JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-      }
-      // setModel(m);
-      // setManufacturer(man);
-      // setRetailPrice(price);
+      } 
+      // Catches any exceptions
+      catch (InvalidModelException | InvalidManufacturerException | InvalidRetailPriceException e) 
+      {
+         throw e;
+      } 
+      
    }
    public CellPhone() throws InvalidManufacturerException, InvalidModelException, InvalidRetailPriceException
    {
@@ -64,7 +56,10 @@ public class CellPhone
       }
    }
 
-   public String getModel(){return model;}
+   public String getModel()
+   {
+      return model;
+   }
    public String getManufacturer()
    {
       return manufacturer;

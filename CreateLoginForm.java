@@ -99,9 +99,15 @@ class CreateLoginForm extends JFrame implements ActionListener
 
         // Lab 5 Step 5: use username and password from users.txt file
         try {
+            // Opens users.txt that has been saved from account creation
             File users = new File("users.txt");
-            try (Scanner sc = new Scanner(users)) {
-                while(sc.hasNextLine()){
+
+            // Tries to open the aforementioned file
+            try (Scanner sc = new Scanner(users)) 
+            {
+                // While there are still lines to read, adds to arrayList
+                while(sc.hasNextLine())
+                {
                     sc.useDelimiter(" ");
                     user.add(sc.next());
                     sc.skip(" ");
@@ -110,8 +116,12 @@ class CreateLoginForm extends JFrame implements ActionListener
                     sc.skip("\n");
                 }
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("Missing file: " + e.getMessage());
+        }
+        
+        // Catch in case the file is missing
+        catch (FileNotFoundException e) 
+        {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
 
         //check whether the credentials are authentic or not

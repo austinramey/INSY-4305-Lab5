@@ -54,34 +54,41 @@ public class CellPhoneInventory extends JFrame {
         jButtonAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 String model = jTextFieldModel.getText();
                 String manufacturer = jTextFieldManufacturer.getText();
-                double price = Double.parseDouble(jTextFieldRetailPrice.getText());
+                double price = 0.0;
+                // Added to catch any nulls that happen
+                try{
+                    price = Double.parseDouble(jTextFieldRetailPrice.getText());
+                } catch(Exception error) {
+                    price = 0.0;
+                }
                 // Lab 5 Step 4: incorporate CellPhone's user-defined Exception classes
                 // here in try catch block
-                boolean success = false;
+                // Success used to track if an error happens
+                boolean success = true;
+                
+                // Tries to add values to CellPhone class
                 try {
                     phoneArrayList.add(new CellPhone(model, manufacturer, price));
-                    success = true;
-                } catch (InvalidModelException error) {
-                    // JOptionPane.showMessageDialog(null, "Error: " + error.getMessage());
+                    // success = true;
+                } 
+                
+                // Used OR functionality to catch any exceptions
+                catch (InvalidModelException | InvalidManufacturerException | InvalidRetailPriceException error) 
+                {
                     success = false;
-                } catch (InvalidManufacturerException error) {
-                    // JOptionPane.showMessageDialog(null, "Error: " + error.getMessage());
-                    success = false;
-                } catch (InvalidRetailPriceException error) {
-                    // JOptionPane.showMessageDialog(null, "Error: " + error.getMessage());
-                    success = false;
-                } finally {
-                    if(success == true){
-                        String InventoryDisplay = "";
-                        for (CellPhone p : phoneArrayList) {
-                            System.out.println(p);
-                            InventoryDisplay += p;
-                        }
-                        JOptionPane.showMessageDialog(null, InventoryDisplay);
+                    JOptionPane.showMessageDialog(null, "Error: " + error.getMessage());
+                }
+
+                // Only runs display portion if there are no errors caught
+                if(success){
+                    String InventoryDisplay = "";
+                    for (CellPhone p : phoneArrayList) {
+                        System.out.println(p);
+                        InventoryDisplay += p;
                     }
+                    JOptionPane.showMessageDialog(null, InventoryDisplay);
                 }
 
             }
